@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CecePrep — Starter</title>
+  <style>
+    /* ---- Base & Palette ---- */
+    :root{
+      --bg: #f6f7fb;            /* soft neutral */
+      --card: #ffffff;
+      --muted-purple: #7B61FF;  /* accent 1 */
+      --warm-gold: #E9B44C;     /* accent 2 */
+      --muted-blue: #4A6FE3;    /* secondary if needed */
+      --text: #33323a;          /* charcoal */
+      --soft-radius: 14px;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg), #eef1fa 120%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      display:flex; flex-direction:column;
+    }
+
+    /* ---- Top nav ---- */
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 20px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--muted-purple),var(--warm-gold));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    .brand h1{margin:0;font-size:18px}
+    .nav .cta{padding:8px 14px;border-radius:10px;background:linear-gradient(90deg,var(--warm-gold),#f1c36b);font-weight:600;border:none}
+
+    /* ---- Container ---- */
+    .container{width:100%;max-width:1100px;margin:20px auto;padding:0 18px}
+
+    /* ---- Hero ---- */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:center;margin-bottom:22px}
+    .hero-card{background:var(--card);border-radius:18px;padding:26px;box-shadow:0 6px 20px rgba(30,30,60,0.06)}
+    .hero h2{margin:0 0 8px;font-size:22px}
+    .hero p{margin:0 0 16px;color:#52525b}
+    .start-btn{display:inline-block;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,var(--muted-purple),var(--muted-blue));color:white;text-decoration:none;font-weight:600}
+
+    /* ---- Subjects grid ---- */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+    .card-subject{background:linear-gradient(180deg,var(--card),#fbfbff);padding:16px;border-radius:14px;box-shadow:0 6px 14px rgba(50,40,80,0.04);display:flex;flex-direction:column;gap:8px}
+    .subject-icon{width:44px;height:44;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--glass);font-weight:700;color:var(--muted-purple)}
+    .subject-title{font-weight:700}
+    .subject-desc{font-size:13px;color:#6b6b73}
+    .small{font-size:13px;color:#7a7882}
+
+    /* ---- Quiz / Randomizer area ---- */
+    .panel{margin-top:18px;padding:16px;background:linear-gradient(180deg,#ffffff, #fcfbff);border-radius:12px}
+    .quiz{display:flex;flex-direction:column;gap:12px}
+    .question{font-weight:600}
+    .options{display:flex;flex-direction:column;gap:8px}
+    .opt{padding:10px;border-radius:10px;border:1px solid #ece9ff;cursor:pointer}
+    .opt.correct{outline:2px solid rgba(122,88,255,0.14)}
+    .opt.wrong{opacity:0.6;text-decoration:line-through}
+
+    /* ---- Footer ---- */
+    footer{margin-top:auto;padding:28px 0;text-align:center;color:#6b6b73}
+
+    /* ---- Responsive ---- */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav container">
+    <div class="brand">
+      <div class="logo">CP</div>
+      <div>
+        <h1>CecePrep</h1>
+        <div class="small">JAMB & WAEC — Study Mode</div>
+      </div>
+    </div>
+    <div>
+      <button class="cta" id="open-dashboard">Open Dashboard</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <h2>Welcome back, Cee 👋</h2>
+        <p>Pick a subject, practice past questions, and track your progress. Designed mobile‑first with your vibe.</p>
+        <a href="#subjects" class="start-btn">Start Learning</a>
+      </div>
+
+      <aside class="hero-card">
+        <h3 style="margin-top:0;">Quick Past Questions</h3>
+        <p class="small">Tap randomize to get a past question from the bank — great for quick drills.</p>
+        <div style="display:flex;gap:8px;margin-top:12px;">
+          <button id="randomize" class="start-btn" style="background:linear-gradient(90deg,var(--warm-gold),#f2c36b);color:#1f1f1f">Randomize</button>
+          <button id="to-quiz" class="start-btn">Open Quiz</button>
+        </div>
+      </aside>
+    </section>
+
+    <section id="subjects">
+      <h3 style="margin:6px 0 14px">Subjects</h3>
+      <div class="grid">
+        <div class="card-subject">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="subject-icon">M</div>
+            <div style="text-align:right">
+              <div class="small">Progress</div>
+              <div style="font-weight:700">42%</div>
+            </div>
+          </div>
+          <div class="subject-title">Mathematics</div>
+          <div class="subject-desc">Past questions, quick drills, topic notes</div>
+        </div>
+
+        <div class="card-subject">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="subject-icon">E</div>
+            <div style="text-align:right">
+              <div class="small">Progress</div>
+              <div style="font-weight:700">28%</div>
+            </div>
+          </div>
+          <div class="subject-title">English</div>
+          <div class="subject-desc">Comprehension practice & grammar</div>
+        </div>
+
+        <div class="card-subject">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="subject-icon">B</div>
+            <div style="text-align:right">
+              <div class="small">Progress</div>
+              <div style="font-weight:700">15%</div>
+            </div>
+          </div>
+          <div class="subject-title">Biology</div>
+          <div class="subject-desc">Notes, diagrams, and past Qs</div>
+        </div>
+
+        <div class="card-subject">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="subject-icon">G</div>
+            <div style="text-align:right">
+              <div class="small">Progress</div>
+              <div style="font-weight:700">60%</div>
+            </div>
+          </div>
+          <div class="subject-title">Government</div>
+          <div class="subject-desc">Topical lessons & MCQs</div>
+        </div>
+
+      </div>
+
+      <!-- Quiz / Randomizer panel -->
+      <div class="panel" style="margin-top:18px">
+        <h4 style="margin:0 0 8px">Live Practice</h4>
+        <div id="quiz-area" class="quiz">
+          <div id="question-box" class="question">Press "Randomize" to load a question</div>
+          <div id="options" class="options"></div>
+          <div style="display:flex;gap:8px">
+            <button id="next-btn" class="start-btn" style="background:linear-gradient(90deg,var(--muted-purple),var(--muted-blue));display:none">Next</button>
+            <button id="retry" class="start-btn" style="background:linear-gradient(90deg,var(--warm-gold),#f2c36b);display:none">Try another</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    Built with ✨ by CecePrep • Prototype — for learning and portfolios
+  </footer>
+
+  <script>
+    // ---- Simple question bank (expandable) ----
+    const questionBank = [
+      {
+        id:1, subject:'Mathematics',
+        q:"If x + 3 = 8, what's x?",
+        options:["4","5","8","11"],
+        answer: "5"
+      },
+      {
+        id:2, subject:'English',
+        q:"Choose the correct past tense: 'She ____ to school.'",
+        options:["go","went","gone","going"],
+        answer: "went"
+      },
+      {
+        id:3, subject:'Biology',
+        q:"Which organ pumps blood around the body?",
+        options:["Brain","Lungs","Heart","Kidney"],
+        answer: "Heart"
+      },
+      {
+        id:4, subject:'Government',
+        q:"What is the capital of Nigeria?",
+        options:["Lagos","Abuja","Kano","Ibadan"],
+        answer: "Abuja"
+      }
+    ];
+
+    // DOM refs
+    const randBtn = document.getElementById('randomize');
+    const qBox = document.getElementById('question-box');
+    const opts = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const retryBtn = document.getElementById('retry');
+    const toQuiz = document.getElementById('to-quiz');
+
+    let current = null;
+
+    function renderQuestion(qObj){
+      current = qObj;
+      qBox.textContent = qObj.q + ' (' + qObj.subject + ')';
+      opts.innerHTML = '';
+      qObj.options.forEach(opt =>{
+        const d = document.createElement('div');
+        d.className = 'opt';
+        d.textContent = opt;
+        d.addEventListener('click', ()=> handleAnswer(d, opt));
+        opts.appendChild(d);
+      })
+      nextBtn.style.display = 'none';
+      retryBtn.style.display = 'none';
+    }
+
+    function handleAnswer(el, chosen){
+      // disable further clicks
+      [...opts.children].forEach(c=> c.style.pointerEvents='none');
+      if(chosen === current.answer){
+        el.classList.add('correct');
+        qBox.textContent = 'Correct ✅ — ' + current.q;
+      } else {
+        el.classList.add('wrong');
+        qBox.textContent = 'Not quite — Answer: ' + current.answer;
+      }
+      nextBtn.style.display = 'inline-block';
+      retryBtn.style.display = 'inline-block';
+    }
+
+    function pickRandom(){
+      const i = Math.floor(Math.random()*questionBank.length);
+      renderQuestion(questionBank[i]);
+    }
+
+    randBtn.addEventListener('click', pickRandom);
+    nextBtn.addEventListener('click', pickRandom);
+    retryBtn.addEventListener('click', pickRandom);
+    toQuiz.addEventListener('click', ()=>{
+      // scroll to quiz area
+      document.getElementById('quiz-area').scrollIntoView({behavior:'smooth'});
+    });
+
+    // Simple dashboard button example
+    document.getElementById('open-dashboard').addEventListener('click', ()=>{
+      alert('Dashboard coming soon — later we will add progress tracking & accounts');
+    });
+
+  </script>
+</body>
+</html>
